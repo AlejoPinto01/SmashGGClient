@@ -1,7 +1,7 @@
-psp\smashggclient\Main.class
-psp\smashggclient\utils\Utils.class
-psp\smashggclient\frames\MainFrame$1.class
 psp\smashggclient\apiclient\ApiClient.class
-psp\smashggclient\models\Player.class
 psp\smashggclient\models\Tournament.class
+psp\smashggclient\utils\Utils.class
+psp\smashggclient\Main.class
+psp\smashggclient\models\Player.class
 psp\smashggclient\frames\MainFrame.class
+psp\smashggclient\frames\MainFrame$1.class

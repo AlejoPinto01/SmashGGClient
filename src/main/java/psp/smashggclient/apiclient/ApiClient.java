@@ -5,44 +5,48 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ApiClient {
-    public String getTournamentPhase(String tournamentSlug) throws IOException, IOException, InterruptedException {
-        String url = "https://api.smash.gg/tournament/" + tournamentSlug + "?expand[]=phase";
-        
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .GET()
-                .build();
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String responseBody = response.body();
-        int responseCode = response.statusCode();
+    private final String baseURL = "https://api.smash.gg/";
 
-        if (responseCode == 200) {
-            //System.out.println(responseBody);
-            return responseBody;
-        }
-        return null;
+    public String getTournamentJson(String tournamentSlug) {
+        String uri = "tournament/" + tournamentSlug + "?expand[]=phase&expand[]=event";
+        return getResponse(uri);
+    }
+
+    public String getEventEntrantsJson(int eventId) {
+        return getResponse("event/" + eventId + "?expand[]=entrants");
     }
     
-    public void getEntrantsPerPhase() throws IOException, InterruptedException {
-        // 1057669 = phase_id
-        String url = "https://api.smash.gg/phase_group/" + "1057669" + "?expand[]=entrants";
-        
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .GET()
-                .build();
+    public String getPlayerDetailsJson(int playerId) {
+        return getResponse("player/" + playerId);
+    }
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String responseBody = response.body();
-        int responseCode = response.statusCode();
+    public String getResponse(String uri) {
+        String url = baseURL + uri;
+        try {
 
-        if (responseCode == 200) {
-            System.out.println(responseBody);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            String responseBody = response.body();
+            int responseCode = response.statusCode();
+
+            if (responseCode == 200) {
+                return responseBody;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ApiClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ApiClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "xdd";
     }
 }
