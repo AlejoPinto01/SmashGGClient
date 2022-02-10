@@ -5,9 +5,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import psp.smashggclient.apiclient.ApiClient;
-import psp.smashggclient.models.Converter;
-import psp.smashggclient.models.Tournament;
-import psp.smashggclient.models.player.Player;
+//import psp.smashggclient.models.Converter;
+//import psp.smashggclient.models.Tournament;
+//import psp.smashggclient.models.player.Player;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -26,6 +26,8 @@ public class MainFrame extends javax.swing.JFrame {
         lblTournamentEntrants = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        txtSlug.setText("super-charge-shot-series");
 
         btnGetTournament.setText("Get tournament");
         btnGetTournament.addActionListener(new java.awt.event.ActionListener() {
@@ -75,14 +77,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnGetTournamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetTournamentActionPerformed
         ApiClient api = new ApiClient();
-        Tournament t = new Tournament();
-        try {
-            t = Converter.fromJsonString(api.getTournamentJson("super-charge-shot-series"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //Tournament t = new Tournament();
+//        try {
+//            //t = Converter.fromJsonString(api.getTournamentJson("super-charge-shot-series"));
+//            System.out.println(api.getPlayerDetailsJson(143842));
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //System.out.println(t);
-        System.out.println(api.getEventEntrantsJson((int) t.getEntities().getEvent().get(0).getID()));
+        //System.out.println(api.getEventEntrantsJson((int) t.getEntities().getEvent().get(0).getID()));
     }//GEN-LAST:event_btnGetTournamentActionPerformed
 
     public static void main(String args[]) {

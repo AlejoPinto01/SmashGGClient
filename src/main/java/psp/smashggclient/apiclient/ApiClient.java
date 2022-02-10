@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 public class ApiClient {
 
     private final String baseURL = "https://api.smash.gg/";
+    String a = "https://api.smash.gg/phase_group/1057669?expand[]=sets&expand[]=standings&expand[]=seeds";
 
     public String getTournamentJson(String tournamentSlug) {
         String uri = "tournament/" + tournamentSlug + "?expand[]=phase&expand[]=event";
@@ -21,9 +22,15 @@ public class ApiClient {
         return getResponse("event/" + eventId + "?expand[]=entrants");
     }
     
+    public String getPlayerId(long phaseGroupId) {
+        return getResponse("phase_group/" + phaseGroupId + "?expand[]=sets&expand[]=standings&expand[]=seeds");
+    }
+    
     public String getPlayerDetailsJson(int playerId) {
         return getResponse("player/" + playerId);
     }
+    
+    // List<Set> i List<Player>
 
     public String getResponse(String uri) {
         String url = baseURL + uri;
@@ -47,6 +54,6 @@ public class ApiClient {
         } catch (InterruptedException ex) {
             Logger.getLogger(ApiClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "xdd";
+        return "code not 200";
     }
 }
